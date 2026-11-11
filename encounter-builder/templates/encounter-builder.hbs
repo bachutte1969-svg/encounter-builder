@@ -1,0 +1,85 @@
+<div class="eb-wrapper">
+  <fieldset class="eb-criteria">
+    <legend>Party</legend>
+    <div class="eb-row">
+      <label>Characters <input type="number" name="partySize" value="{{c.partySize}}" min="1" step="1"></label>
+      <label>Average Party Level (APL) <input type="number" name="avgLevel" value="{{c.avgLevel}}" min="1" step="1"></label>
+      <button type="button" data-action="readParty" title="Count characters and average their level from the party folder">
+        <i class="fas fa-users"></i> Read party
+      </button>
+    </div>
+  </fieldset>
+
+  <fieldset class="eb-criteria">
+    <legend>Monsters</legend>
+    <div class="eb-row">
+      <label>Encounter style <select name="style">{{selectOptions styleOptions selected=c.style}}</select></label>
+      <label>Biome <select name="biome">{{selectOptions biomeOptions selected=c.biome}}</select></label>
+      <label>Type <select name="type">{{selectOptions typeOptions selected=c.type}}</select></label>
+    </div>
+    <div class="eb-row">
+      <label>Min HD <input type="number" name="hdMin" value="{{c.hdMin}}" min="0" step="any" placeholder="any"></label>
+      <label>Max HD <input type="number" name="hdMax" value="{{c.hdMax}}" min="0" step="any" placeholder="any"></label>
+      <label>Monster kinds per encounter <input type="number" name="maxKinds" value="{{c.maxKinds}}" min="1" max="4" step="1"></label>
+    </div>
+    <div class="eb-row eb-checks">
+      <label><input type="checkbox" name="respectEncountered" {{checked c.respectEncountered}}> Respect No. Encountered</label>
+      <label><input type="checkbox" name="includeUnknownBiome" {{checked c.includeUnknownBiome}}> Include monsters with no biome listed</label>
+      <label><input type="checkbox" name="placeHidden" {{checked c.placeHidden}}> Place tokens hidden</label>
+    </div>
+  </fieldset>
+
+  <div class="eb-summary">
+    <span><strong class="eb-match-count">{{matchCount}}</strong> of {{monsterCount}} monsters match</span>
+    {{#if noBiomeCount}}<span class="eb-dim">({{noBiomeCount}} have no biome)</span>{{/if}}
+    <span class="eb-apl">{{summary}}</span>
+    <button type="button" data-action="rescan" title="Re-read the monster folder"><i class="fas fa-rotate"></i></button>
+    <button type="button" class="eb-reset" data-action="reset" title="Reset all fields to defaults and clear results"><i class="fas fa-arrow-rotate-left"></i> Reset</button>
+    <button type="button" class="eb-generate" data-action="generate"><i class="fas fa-dice-d20"></i> Build encounters</button>
+  </div>
+
+  <div class="eb-results">
+    {{#each results}}
+      <section class="eb-tier">
+        <header>
+          <h3>{{label}}</h3>
+          {{#if empty}}
+            <span class="eb-dim">No monsters fit this encounter style with these filters.</span>
+          {{else}}
+            <span class="eb-xp"><i class="fas fa-star"></i> {{xpLabel}}</span>
+          {{/if}}
+          <div class="eb-actions">
+            <button type="button" data-action="reroll" data-index="{{index}}" title="Reroll"><i class="fas fa-dice"></i></button>
+            {{#unless empty}}
+              <button type="button" data-action="place" data-index="{{index}}" title="Place tokens on the current scene"><i class="fas fa-map-pin"></i></button>
+              <button type="button" data-action="journal" data-index="{{index}}" title="Save as journal entry"><i class="fas fa-book"></i></button>
+              <button type="button" data-action="chat" data-index="{{index}}" title="Whisper to GM chat"><i class="fas fa-comment"></i></button>
+            {{/unless}}
+          </div>
+        </header>
+        {{#unless empty}}
+          <div class="eb-math {{#unless inRange}}eb-off{{/unless}}">
+            Target {{target}} · Built {{total}} creatures, {{rawHD}} HD
+            ({{effSum}} effective{{#if (gt mult 1)}}, ×{{mult}} action economy = <strong>{{effective}}</strong>{{/if}})
+          </div>
+          <ul>
+            {{#each groups}}
+              <li>
+                <img src="{{img}}" alt="">
+                <a data-action="openActor" data-actor-id="{{id}}"><strong>{{count}} × {{name}}</strong>{{#if role}} <span class="eb-dim">({{role}})</span>{{/if}}</a>
+                <span>HD {{hd}}{{#if bonus}} <span class="eb-danger">(eff {{effHD}})</span>{{/if}}</span>
+                <span>{{#if xpTotal}}{{xpTotal}} XP{{else}}— XP{{/if}}</span>
+                <span class="eb-dim">{{#if type}}{{type}}{{else}}—{{/if}} · {{biomeLabel}}{{#if dangerText}}<br><span class="eb-danger">{{dangerText}}</span>{{/if}}</span>
+              </li>
+            {{/each}}
+          </ul>
+          {{#if notes.length}}
+            <ul class="eb-notes">{{#each notes}}<li>{{this}}</li>{{/each}}</ul>
+          {{/if}}
+        {{/unless}}
+      </section>
+    {{else}}
+      <p class="eb-dim eb-empty">Set the party and filters, then press <strong>Build encounters</strong>.</p>
+    {{/each}}
+  </div>
+</div>

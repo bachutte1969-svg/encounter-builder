@@ -1,0 +1,18 @@
+{
+  "EB.Title": "Encounter Builder",
+  "EB.Open": "Encounter Builder",
+  "EB.Settings.MonsterFolder.Name": "Monster folder",
+  "EB.Settings.MonsterFolder.Hint": "Name of the Actor folder that holds your monsters. All subfolders are included (e.g. Monsters/Monsters/H).",
+  "EB.Settings.PartyFolder.Name": "Party folder",
+  "EB.Settings.PartyFolder.Hint": "Name of the Actor folder that holds the player characters (used by the 'Read party' button).",
+  "EB.Settings.AbilityBonus.Name": "HD bonus per special ability",
+  "EB.Settings.AbilityBonus.Hint": "Adjusted HD = monster HD + this value for each special ability Item on the monster.",
+  "EB.Settings.GroupMult.Name": "Use group-size multiplier",
+  "EB.Settings.GroupMult.Hint": "Large groups count for more than the sum of their HD/XP (x1 for 1, x1.5 for 2, x2 for 3-6, x2.5 for 7-10, x3 for 11-14, x4 for 15+).",
+  "EB.Settings.Tiers.Name": "Challenge levels",
+  "EB.Settings.Tiers.Hint": "Comma-separated Name:multiplier pairs. The multiplier is applied to the party budget (total party levels, or XP).",
+  "EB.Settings.XPTable.Name": "XP budget per character, by level",
+  "EB.Settings.XPTable.Hint": "Comma-separated XP values for levels 1, 2, 3 ... Used when measuring by XP. Starting values; tune to your table.",
+  "EB.Settings.MaxCreatures.Name": "Maximum creatures per encounter",
+  "EB.Settings.MaxCreatures.Hint": "Hard cap on the number of monsters in one encounter."
+}

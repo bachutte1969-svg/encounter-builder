@@ -1,0 +1,18 @@
+{
+  "id": "encounter-builder",
+  "title": "Encounter Builder",
+  "description": "Builds random encounters from your monster actors, filtered by biome, creature type and hit dice, and scaled into challenge levels (Easy, Average, Hard, Deadly) against your party. Written for Castles & Crusades but works with any system that stores hit dice on monster actors.",
+  "version": "0.2.2",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
+  "authors": [
+    { "name": "Encounter Builder" }
+  ],
+  "esmodules": ["scripts/encounter-builder.mjs"],
+  "styles": ["styles/encounter-builder.css"],
+  "languages": [
+    { "lang": "en", "name": "English", "path": "lang/en.json" }
+  ]
+}
